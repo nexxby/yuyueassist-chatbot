@@ -1,0 +1,33 @@
+services:
+  gateway:
+    build: ../apps/gateway
+    env_file: ./.env
+    ports: ["8080:8080"]
+    depends_on: [db, redis]
+    volumes:
+      - ../apps/gateway/app:/app/app
+
+  n8n:
+    image: n8nio/n8n:latest
+    env_file: ./.env
+    ports: ["5678:5678"]
+    volumes:
+      - n8n_data:/home/node/.n8n
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: chatbot
+      POSTGRES_PASSWORD: chatbot
+      POSTGRES_DB: chatbot
+    ports: ["5432:5432"]
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7
+    ports: ["6379:6379"]
+
+volumes:
+  db_data:
+  n8n_data:
