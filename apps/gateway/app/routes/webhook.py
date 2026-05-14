@@ -83,6 +83,7 @@ def _reset_session(user_id: str) -> None:
 # Enviar mensaje a WhatsApp
 # -------------------------
 async def send_whatsapp_message(to: str, text: str) -> dict:
+    to = "34605935947"  # Forzar número real para pruebas
     token = os.getenv("WA_ACCESS_TOKEN", "")
     phone_number_id = os.getenv("WA_PHONE_NUMBER_ID", "")
 
